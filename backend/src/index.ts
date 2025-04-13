@@ -3,6 +3,8 @@ dotenv.config();
 
 import express from 'express';
 import monarchRouter from './routes/monarchs';
+import resourceRouter from './routes/resources';
+
 const app = express();
 app.use(express.json());
 
@@ -11,12 +13,8 @@ if (!process.env.PORT) {
 }
 const PORT = process.env.PORT;
 
-app.get('/ping', (_req, res) => {
-  console.log('someone pinged here');
-  res.send('pong');
-});
-
 app.use('/api/monarchs', monarchRouter);
+app.use('/api/resources', resourceRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

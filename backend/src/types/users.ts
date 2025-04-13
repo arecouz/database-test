@@ -1,3 +1,4 @@
-import { Database } from "./database.types";
-
-export type CreateUserRequest = Database['public']['Tables']['users']['Insert'];
+export interface SignUpData {
+  email: string;
+  username: string;
+}

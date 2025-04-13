@@ -1,0 +1,8 @@
+POST http://localhost:5173/api/users/create
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "email": "johndoe@gmail.com",
+  "password": "securePassword123"
+}
