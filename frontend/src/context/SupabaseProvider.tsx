@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react';
 import supabaseClient from '../lib/supabaseClient';
 import SupabaseContext from './SupabaseContext';
+import { Session } from '@supabase/supabase-js';
+import { ReactNode } from 'react';
 
-const SupabaseProvider = ({ children }) => {
-  const [session, setSession] = useState(null);
+type SupabaseProviderProps = {
+  children: ReactNode;
+};
+
+const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabaseClient.auth
-      .getSession()
-      .then(({ data: { session } }) => {
-        setSession(session);
-        setLoading(false);
-      });
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
 
     const {
       data: { subscription },

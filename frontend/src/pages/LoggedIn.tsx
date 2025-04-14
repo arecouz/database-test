@@ -5,21 +5,21 @@ import Resources from '../components/Resources.tsx';
 const LoggedIn = () => {
   const { session, supabaseClient } = useSupabase();
 
-  const isAnonymous = session ? session.user?.is_anonymous : false;
+  if (!session) {
+    throw Error('NO SESSION!');
+  }
+
+  const isAnonymous = session ? session?.user?.is_anonymous : false;
   const isAdmin = session
     ? session.user?.user_metadata?.role === 'admin'
     : false;
 
-  console.log(session.user.user_metadata);
-  console.log('is admin????: ', isAdmin);
-
   const handleLogOut = async () => {
     console.log('clicked');
-    const { data, error } = await supabaseClient.auth.signOut();
+    const {  error } = await supabaseClient.auth.signOut();
     if (error) {
       console.error('Error signing out:', error.message);
     }
-    console.log(data);
   };
 
   const addResource = () => {
